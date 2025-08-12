@@ -1,0 +1,43 @@
+# This is a GitHub Actions workflow file.
+# Think of it like a robot that runs certain tasks for you whenever you push code to GitHub.
+
+name: FastAPI CI   # The name of the workflow (CI = Continuous Integration)
+
+# This tells GitHub when to run this robot.
+on:
+  push:                                  # Run when code is pushed to GitHub
+    branches: [ "main" ]                 # Only run when pushing to the 'main' branch
+  pull_request:                          # Also run when someone makes a Pull Request
+    branches: [ "main" ]                 # Only check PRs going into the 'main' branch
+
+jobs:
+  build:                                 # This is the job name (you can name it anything)
+    runs-on: ubuntu-latest               # The robot will use the latest Ubuntu operating system
+
+    steps:                               # Steps are like instructions for the robot to follow
+
+    # 1️⃣ Step 1: Get the code from your GitHub repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # 2️⃣ Step 2: Install Python so the robot can run your code
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.10"   # This is the Python version your app uses
+
+    # 3️⃣ Step 3: Install project dependencies
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip  # Upgrade pip (the Python package installer)
+        pip install -r requirements.txt      # Install everything from requirements.txt
+
+    # 4️⃣ Step 4: Start the FastAPI app in the background
+    - name: Run FastAPI app (Test)
+      run: |
+        uvicorn main:app --host 0.0.0.0 --port 8000 &   # The '&' means "run in background"
+        sleep 5   # Wait for 5 seconds so the server can start
+
+    # 5️⃣ Step 5: Check if the FastAPI app is working
+    - name: Test if API is up
+      run: curl http://127.0.0.1:8000/docs   # If this works, it means the API is running!
