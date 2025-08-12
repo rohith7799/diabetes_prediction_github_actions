@@ -70,3 +70,10 @@ def diabetes_pred(input_parameters: ModelInput):
 # cmd = python app_folder/main.py
 
 # docker_venv\Scripts\activate
+
+# github Steps to create a repository and push all files
+# git init
+# git add .
+# git commit -m "initial commit"
+# gh repo create your-repo-name --public --source=. --remote=origin --push
+# gh repo create diabetes_prediction_github_actions --public --source=. --remote=origin --push
