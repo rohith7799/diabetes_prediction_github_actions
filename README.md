@@ -2,7 +2,7 @@
 
 This project is a **FastAPI-based API** for predicting diabetes based on user-provided medical details.  
 The model used here is a pre-trained **machine learning model** stored in `trained_model/diabetes_model.pkl`.
-
+In this project, I have implemented the Github actions which will trigger when any push or pull request is made.
 ---
 
 ## 📂 Project Structure
